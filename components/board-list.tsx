@@ -19,7 +19,7 @@ const BoardList = ({ board }: BoardListProps) => {
 
     const pathname = usePathname();
 
-    const boardId = pathname.split("/")[3];
+    const boardId = pathname.split("/")[2];
 
     return (
         <div key={board.id} className={cn("flex gap-3 py-3 items-center cursor-pointer px-7 mr-9 rounded-br-[25px] rounded-tr-[25px] transition", {

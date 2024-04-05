@@ -23,8 +23,10 @@ const NewBoard = () => {
     const [error, setError] = useState<string | undefined>();
     const [closeDialog, setCloseDialog] = useState(false);
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleCreateBoard = async () => {
+        setIsLoading(true);
         if (boardName !== "") {
             const response = await axios.post("/api/board", {
                 boardName
@@ -37,6 +39,8 @@ const NewBoard = () => {
         } else {
             setError("Board name cannot be left empty.");
         }
+
+        setIsLoading(false);
     }
 
     return (
@@ -63,7 +67,7 @@ const NewBoard = () => {
                         <DialogClose asChild>
                             <Button variant="ghost">Close</Button>
                         </DialogClose>
-                        <Button onClick={() => handleCreateBoard()}>Create</Button>
+                        <Button disabled={isLoading} onClick={() => handleCreateBoard()}>Create</Button>
                     </DialogFooter>
                 </DialogHeader>
             </DialogContent>

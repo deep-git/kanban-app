@@ -24,6 +24,7 @@ model Profile {
   updatedAt DateTime  @updatedAt
   boards    Boards[]
   columns   Columns[]
+  tasks     Tasks[]
 }
 
 model Boards {
@@ -36,6 +37,7 @@ model Boards {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   columns   Columns[]
+  tasks     Tasks[]
 
   @@index([profileId])
 }
@@ -51,9 +53,50 @@ model Columns {
   profileId String
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  tasks     Tasks[]
+  subtasks  Subtasks[]
 
   @@index([boardId])
   @@index([profileId])
+}
+
+model Tasks {
+  id          String @id @default(uuid()) @map("_id")
+  name        String
+  description String @db.String
+  status      String @db.String
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  boardId String
+  boards  Boards @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  columnId String
+  columns  Columns @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  subtasks  Subtasks[]
+
+  @@index([boardId])
+  @@index([profileId])
+  @@index([columnId])
+}
+
+model Subtasks {
+  id        String  @id @default(uuid()) @map("_id")
+  name      String
+  completed Boolean
+
+  taskId String
+  tasks  Tasks  @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  columnId String
+  columns  Columns @relation(fields: [columnId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@index([columnId])
 }

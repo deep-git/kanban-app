@@ -70,7 +70,31 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.task_scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.task_scroll::-webkit-scrollbar-track {
+  width: 5px;
+  background-color: rgb(44, 44, 56);
+}
+
+.task_scroll::-webkit-scrollbar-thumb {
+  width: 5px;
+  background-color: rgb(33, 33, 45);
+}
+
+.board_list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.board_list::-webkit-scrollbar-thumb {
+  width: 5px;
+  background-color: rgb(125, 133, 149);
 }

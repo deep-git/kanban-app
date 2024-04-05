@@ -33,9 +33,12 @@ const NewColumn = ({ board }: NewColumnProps) => {
     const [colorValue, setColorValue] = useState("");
     const [error, setError] = useState<string | undefined>();
     const [closePopover, setClosePopover] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     const handleCreateColumn = async () => {
+
+        setIsLoading(true);
 
         if (nameColumn !== "" && colorValue !== "") {
             const response = await fetch(`/api/board/${board?.id}/column`, {
@@ -57,31 +60,33 @@ const NewColumn = ({ board }: NewColumnProps) => {
         } else {
             setError("All fields must be filled.");
         }
+
+        setIsLoading(false);
     }
 
     return (
-        <div className="flex justify-center items-center w-[300px] bg-dark-new_column hover:bg-dark-new_column/70 text-dark-gray_text hover:text-purple-1">
+        <div className="flex justify-center items-center w-[300px] bg-light-new_column dark:bg-dark-new_column hover:bg-light-new_column/70 dark:hover:bg-dark-new_column/70 text-dark-gray_text hover:text-purple-1">
 
             <Popover open={closePopover} onOpenChange={() => setClosePopover(prev => !prev)}>
                 <PopoverTrigger>
                     <h3 className="text-2xl font-semibold cursor-pointer">+ New Column</h3>
                 </PopoverTrigger>
-                <PopoverContent side="top" className="bg-dark-board_background border-purple-1 border-[2px] text-dark-gray_text">
+                <PopoverContent side="top" className="bg-light-board_background dark:bg-dark-board_background border-purple-1 border-[2px] text-dark-gray_text">
                     <h4 className="text-purple-1 font-semibold">Create New Column</h4>
 
                     <div className="flex flex-col mt-3 gap-2">
                         <Label>Name</Label>
-                        <Input placeholder="Column name" className="bg-dark-sidebar border-dark-board_background text-purple-1" value={nameColumn} onChange={(e) => setNameColumn(e.target.value)} />
+                        <Input placeholder="Column name" className="bg-light-sidebar dark:bg-dark-sidebar border-light-board_background dark:border-dark-board_background text-purple-1" value={nameColumn} onChange={(e) => setNameColumn(e.target.value)} />
                     </div>
 
                     <div className="flex flex-col mt-3 gap-2">
                         <Label>Colour</Label>
 
                         <Select onValueChange={(value) => setColorValue(value)}>
-                            <SelectTrigger className="bg-dark-board_background border-dark-sidebar border-[2px]">
+                            <SelectTrigger className="bg-light-board_background dark:bg-dark-board_background border-light-sidebar dark:border-dark-sidebar border-[2px]">
                                 <SelectValue placeholder="Theme" />
                             </SelectTrigger>
-                            <SelectContent className="bg-dark-board_background text-white border-none">
+                            <SelectContent className="bg-light-board_background dark:bg-dark-board_background text-black dark:text-white border-none">
                                 {columnColours && columnColours.map((colour) => (
                                     <SelectItem key={colour.label} value={colour.color}>
                                         <div className="flex gap-3 justify-center items-center">
@@ -99,7 +104,7 @@ const NewColumn = ({ board }: NewColumnProps) => {
                     )}
 
                     <div className="w-max ml-auto mt-5">
-                        <Button onClick={() => handleCreateColumn()} className="bg-purple-1 hover:bg-purple-1/70">Create</Button>
+                        <Button disabled={isLoading} onClick={() => handleCreateColumn()} className="bg-purple-1 hover:bg-purple-1/70 text-white">Create</Button>
                     </div>
                 </PopoverContent>
             </Popover>

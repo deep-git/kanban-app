@@ -22,6 +22,14 @@ const config = {
         purple: {
           1: "rgb(100,95,198)"
         },
+        light: {
+          sidebar: "rgb(255,255,255)",
+          navbar: "rgb(255,255,255)",
+          board_background: "rgb(244,247,255)",
+          gray_text: "rgb(125,133,149)",
+          text: "rgb(0,0,0)",
+          new_column: "rgb(232,240,251)"
+        },
         dark: {
           sidebar: "rgb(44,44,56)",
           navbar: "rgb(44,44,56)",

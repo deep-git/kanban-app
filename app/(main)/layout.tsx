@@ -5,8 +5,10 @@ import React from 'react'
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="w-full h-screen flex overflow-hidden">
-            <Sidebar />
-            <div className="flex flex-col w-full">
+            <div className="hidden md:flex">
+                <Sidebar />
+            </div>
+            <div className="flex flex-col flex-1">
                 {children}
             </div>
         </div>
