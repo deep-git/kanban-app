@@ -49,7 +49,7 @@ const ListTask = ({ task, subtasks, columnNames, handleRefresh }: ListTaskProps)
     useEffect(() => {
         const filterSubtasks = viewSubtasks.filter((subtask) => subtask.taskId === task.id);
         setViewSubtasks(filterSubtasks);
-    }, [])
+    }, [task.id, viewSubtasks]);
 
     const handleChangeStatus = (value: string) => {
         setAddToColumn(value);
