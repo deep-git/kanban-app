@@ -13,13 +13,11 @@ const BoardIdPage = async ({ params }: { params: { boardName: string, boardId: s
         return null;
     }
 
-    /*
     const boards = await db.boards.findMany({
         where: {
             profileId: profile.id
         }
     });
-    */
 
     const board = await db.boards.findUnique({
         where: {
@@ -46,7 +44,7 @@ const BoardIdPage = async ({ params }: { params: { boardName: string, boardId: s
 
     return (
         <div className="relative flex flex-col w-full min-h-screen">
-            <Navbar board={board} columnNames={columnNames} columns={columns} />
+            <Navbar board={board} boards={boards} columnNames={columnNames} columns={columns} />
 
             <div className="absolute bottom-0 left-0 right-0 w-full">
                 <BoardContent board={board} />

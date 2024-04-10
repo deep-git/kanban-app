@@ -73,6 +73,7 @@ const DisplayColumns = ({ column, tasks, subtasks, columnNames }: DisplayColumns
         setIsLoading(false);
     }
 
+    /*
     const handleDragDrop = (results: any) => {
         const { source, destination, type } = results;
 
@@ -95,11 +96,43 @@ const DisplayColumns = ({ column, tasks, subtasks, columnNames }: DisplayColumns
             return setReorderTasks(reorderedStores);
         }
     }
+    */
 
     return (
         <div onMouseEnter={() => setHoverShow(true)} onMouseLeave={() => setHoverShow(false)} className={cn("flex w-[300px] flex-col gap-5 items-center", {
             "bg-neutral-800/50": active
         })}>
+
+            <div className="flex justify-between items-center w-full">
+                <div className="flex gap-3 items-center">
+                    <div style={{ backgroundColor: `${column.color}` }} className="w-3 h-3 rounded-full" />
+                    <span className="text-dark-gray_text font-semibold uppercase tracking-wide">{column.name}</span>
+                </div>
+
+                {hoverShow && (
+                    <Popover>
+                        <PopoverTrigger>
+                            <BsThreeDots className="w-5 h-5 text-dark-gray_text hover:text-purple-1 transition" />
+                        </PopoverTrigger>
+
+                        <PopoverContent className="bg-light-board_background dark:bg-dark-board_background border-light-board_background dark:border-dark-board_background">
+                            <button disabled={isLoading} onClick={() => handleDeleteColumn()} className="flex gap-3 text-red-600 hover:bg-red-600/10 px-2 py-2 rounded-lg cursor-pointer w-full">
+                                <Trash />
+                                <span>Delete Column</span>
+                            </button>
+                        </PopoverContent>
+                    </Popover>
+
+                )}
+            </div>
+
+            <div className="flex w-full">
+                {reorderTasks && reorderTasks.map((task) => (
+                    <ListTask key={task.id} task={task} subtasks={subtasks} columnNames={columnNames} handleRefresh={handleRefresh} />
+                ))}
+            </div>
+
+            {/* 
             <DragDropContext onDragEnd={handleDragDrop}>
                 <div className="flex justify-between items-center w-full">
                     <div className="flex gap-3 items-center">
@@ -146,6 +179,7 @@ const DisplayColumns = ({ column, tasks, subtasks, columnNames }: DisplayColumns
 
                 </Droppable>
             </DragDropContext>
+            */}
         </div>
     )
 }
