@@ -18,7 +18,7 @@ import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
 interface MobileSidebarProps {
-    boards: {
+    boards?: {
         id: string;
         name: string;
         profileId: string;
@@ -40,11 +40,11 @@ const MobileSidebar = ({ boards }: MobileSidebarProps) => {
                 </Link>
 
                 <div className="mt-10">
-                    <p className="uppercase text-dark-gray_text font-semibold px-7">All boards <span>({boards.length})</span></p>
+                    <p className="uppercase text-dark-gray_text font-semibold px-7">All boards <span>({boards?.length})</span></p>
 
                     <div className="flex flex-col mt-5 gap-1">
                         <ScrollArea className="max-h-[400px] overflow-y-scroll">
-                            {boards && boards.map((board) => (
+                            {boards && boards?.map((board) => (
                                 <Link key={board.id} href={`/dashboard/${board.id}`}>
                                     <BoardList key={board.id} board={board} />
                                 </Link>

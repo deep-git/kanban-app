@@ -40,7 +40,7 @@ interface NavbarProps {
         createdAt: Date;
         updatedAt: Date;
     } | null,
-    boards: {
+    boards?: {
         id: string;
         name: string;
         profileId: string;
@@ -77,12 +77,14 @@ const Navbar = ({ board, boards, columnNames, columns }: NavbarProps) => {
 
         setCloseDialog(false);
 
-        console.log(boards.length);
+        console.log(boards?.length);
 
-        if (boards.length > 1) {
-            router.push(`/dashboard/${boards[0].id}`);
-        } else {
-            router.push("/dashboard");
+        if (boards?.length) {
+            if (boards?.length > 1) {
+                router.push(`/dashboard/${boards[0]?.id}`);
+            } else {
+                router.push("/dashboard");
+            }
         }
         router.refresh();
     }
