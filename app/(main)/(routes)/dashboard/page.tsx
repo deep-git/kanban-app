@@ -20,6 +20,10 @@ const Dashboard = async () => {
         }
     });
 
+    if (!boards) {
+        return null;
+    }
+
     return (
         <div>
             <div className="flex md:hidden items-center px-10 gap-3 w-full h-[100px] bg-light-sidebar dark:bg-dark-sidebar">

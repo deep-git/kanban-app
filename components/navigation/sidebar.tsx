@@ -26,6 +26,10 @@ const Sidebar = async () => {
         }
     });
 
+    if (!boards) {
+        return null;
+    }
+
     return (
         <HideSidebar boards={boards} />
     )

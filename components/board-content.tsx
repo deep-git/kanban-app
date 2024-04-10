@@ -30,6 +30,10 @@ const BoardContent = async ({ board }: BoardContentProps) => {
         }
     });
 
+    if (!columns) {
+        return null;
+    }
+
     let columnNames: {
         id: string,
         name: string

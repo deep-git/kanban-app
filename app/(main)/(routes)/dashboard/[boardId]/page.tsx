@@ -19,6 +19,10 @@ const BoardIdPage = async ({ params }: { params: { boardName: string, boardId: s
         }
     });
 
+    if (!boards) {
+        return null;
+    }
+
     const board = await db.boards.findUnique({
         where: {
             id: params.boardId,
@@ -26,12 +30,20 @@ const BoardIdPage = async ({ params }: { params: { boardName: string, boardId: s
         }
     });
 
+    if (!board) {
+        return null;
+    }
+
     const columns = await db.columns.findMany({
         where: {
             boardId: board?.id,
             profileId: profile?.id
         }
     });
+
+    if (!columns) {
+        return null;
+    }
 
     let columnNames = [];
 
